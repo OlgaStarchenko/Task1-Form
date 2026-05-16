@@ -6,6 +6,11 @@ input {
   background-color: rgb(255, 255, 255);
   margin: 10px;
   padding: 5px;
+  color: rgb(88, 57, 14);
+}
+
+input::placeholder {
+  color: rgb(88, 57, 14);
 }
 
 .container {
@@ -20,6 +25,7 @@ input {
 }
 .error {
   margin: 15px 10px;
+  margin-bottom: 5px;
   color: red;
 }
 .form {
@@ -30,6 +36,7 @@ input {
 
 .btn {
   background-color: rgb(232, 200, 161);
-  margin: 10px;
+  margin: 15px;
   padding: 5px 10px;
+  color: rgb(88, 57, 14);
 }
