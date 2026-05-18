@@ -2,21 +2,22 @@ import { useState } from "react";
 import styles from "./App.module.css";
 
 export function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    repeatPassword: "",
+  });
 
-  const formData = {
-    email: email,
-    password: password,
-    repeatPassword: repeatPassword,
-  };
+  const { email, password, repeatPassword } = formData;
+
   const sendData = (event) => {
     event.preventDefault();
     console.log(formData);
-    setEmail("");
-    setPassword("");
-    setRepeatPassword("");
+    setFormData({
+      email: "",
+      password: "",
+      repeatPassword: "",
+    });
   };
 
   return (
@@ -27,19 +28,25 @@ export function App() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(submit) => setEmail(submit.target.value)}
+          onChange={({ target }) => {
+            setFormData({ ...formData, email: target.value });
+          }}
         />
         <input
           type="password"
           placeholder="Пароль"
           value={password}
-          onChange={(submit) => setPassword(submit.target.value)}
+          onChange={({ target }) => {
+            setFormData({ ...formData, password: target.value });
+          }}
         />
         <input
           type="password"
           placeholder="Повтор пароля"
           value={repeatPassword}
-          onChange={(submit) => setRepeatPassword(submit.target.value)}
+          onChange={({ target }) => {
+            setFormData({ ...formData, repeatPassword: target.value });
+          }}
         />
         <button type="submit" className={styles.btn}>
           Зарегистрироваться
