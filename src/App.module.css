@@ -41,3 +41,8 @@ input::placeholder {
   padding: 5px 10px;
   color: rgb(88, 57, 14);
 }
+
+button:disabled {
+  background-color: rgb(215, 208, 208);
+  color: rgb(121, 119, 119, 0.3);
+}
