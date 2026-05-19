@@ -24,8 +24,8 @@ input::placeholder {
   flex-direction: column;
 }
 .error {
-  margin: 15px 10px;
-  margin-bottom: 5px;
+  min-height: 24px;
+  margin-top: 20px;
   color: red;
 }
 .form {

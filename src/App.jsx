@@ -43,6 +43,10 @@ export function App() {
       error = "Пароль должен быть не более 10 символов";
     }
 
+    if (repeatPassword !== target.value) {
+      error = "Пароли должны совпадать";
+    }
+
     setInputError(error);
   };
 
@@ -50,6 +54,12 @@ export function App() {
     setFormData({ ...formData, repeatPassword: target.value });
 
     let error = null;
+
+    if (target.value.length === "" || target.value.length < 6) {
+      error = "Пароль должен быть не менее 6 символов";
+    } else if (target.value.length > 10) {
+      error = "Пароль должен быть не более 10 символов";
+    }
 
     if (password !== target.value) {
       error = "Пароли должны совпадать";
@@ -60,7 +70,7 @@ export function App() {
 
   return (
     <div className={styles.container}>
-      {inputError && <div className={styles.error}>{inputError}</div>}
+      <div className={styles.error}>{inputError}</div>
       <form className={styles.form} onSubmit={sendData}>
         <input
           type="email"
