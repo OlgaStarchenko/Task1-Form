@@ -20,52 +20,54 @@ export function App() {
       repeatPassword: "",
     });
   };
+  console.log(inputError);
 
-  const onEmailChange = ({ target }) => {
-    setFormData({ ...formData, email: target.value });
-    let error = null;
+  const onChange = ({ target }) => {
+    const { name, value } = target;
 
-    if (target.value === "") {
-      error = "Введите адрес электронной почты";
-    }
+    const newFormData = {
+      ...formData,
+      [name]: value,
+    };
 
-    setInputError(error);
-  };
-
-  const onPasswordChange = ({ target }) => {
-    setFormData({ ...formData, password: target.value });
+    setFormData(newFormData);
 
     let error = null;
 
-    if (target.value.length === "" || target.value.length < 6) {
-      error = "Пароль должен быть не менее 6 символов";
-    } else if (target.value.length > 10) {
-      error = "Пароль должен быть не более 10 символов";
+    if (name === "email") {
+      if (value === "") {
+        error = "Введите адрес электронной почты";
+      }
+      setInputError(error);
     }
 
-    if (repeatPassword !== target.value) {
-      error = "Пароли должны совпадать";
+    if (name === "password") {
+      if (value.length < 6) {
+        error = "Пароль должен быть не менее 6 символов";
+      } else if (value.length > 10) {
+        error = "Пароль должен быть не более 10 символов";
+      } else if (
+        newFormData.password !== "" &&
+        value !== newFormData.repeatPassword
+      ) {
+        error = "Пароли должены совпадать";
+      }
+      setInputError(error);
     }
 
-    setInputError(error);
-  };
-
-  const onRepeatPasswordChange = ({ target }) => {
-    setFormData({ ...formData, repeatPassword: target.value });
-
-    let error = null;
-
-    if (target.value.length === "" || target.value.length < 6) {
-      error = "Пароль должен быть не менее 6 символов";
-    } else if (target.value.length > 10) {
-      error = "Пароль должен быть не более 10 символов";
+    if (name === "repeatPassword") {
+      if (value.length < 6) {
+        error = "Пароль должен быть не менее 6 символов";
+      } else if (value.length > 10) {
+        error = "Пароль должен быть не более 10 символов";
+      } else if (
+        newFormData.repeatPassword !== "" &&
+        value !== newFormData.password
+      ) {
+        error = "Пароли должены совпадать";
+      }
+      setInputError(error);
     }
-
-    if (password !== target.value) {
-      error = "Пароли должны совпадать";
-    }
-
-    setInputError(error);
   };
 
   return (
@@ -73,22 +75,25 @@ export function App() {
       <div className={styles.error}>{inputError}</div>
       <form className={styles.form} onSubmit={sendData}>
         <input
+          name="email"
           type="email"
           placeholder="Email"
           value={email}
-          onChange={onEmailChange}
+          onChange={onChange}
         />
         <input
+          name="password"
           type="password"
           placeholder="Пароль"
           value={password}
-          onChange={onPasswordChange}
+          onChange={onChange}
         />
         <input
+          name="repeatPassword"
           type="password"
           placeholder="Повтор пароля"
           value={repeatPassword}
-          onChange={onRepeatPasswordChange}
+          onChange={onChange}
         />
         <button
           type="submit"
