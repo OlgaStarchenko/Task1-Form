@@ -22,6 +22,12 @@ export function App() {
   };
   console.log(inputError);
 
+  const onBlur = () => {
+    if (password.length < 6) {
+      setInputError("Пароль должен быть не менее 6 символов");
+    }
+  };
+
   const onChange = ({ target }) => {
     const { name, value } = target;
 
@@ -34,40 +40,26 @@ export function App() {
 
     let error = null;
 
-    if (name === "email") {
-      if (value === "") {
-        error = "Введите адрес электронной почты";
-      }
-      setInputError(error);
+    if (name === "email" && value === "") {
+      error = "Введите адрес электронной почты";
     }
 
     if (name === "password") {
-      if (value.length < 6) {
-        error = "Пароль должен быть не менее 6 символов";
-      } else if (value.length > 10) {
+      if (value.length > 10) {
         error = "Пароль должен быть не более 10 символов";
-      } else if (
-        newFormData.password !== "" &&
-        value !== newFormData.repeatPassword
-      ) {
-        error = "Пароли должены совпадать";
       }
-      setInputError(error);
     }
 
-    if (name === "repeatPassword") {
-      if (value.length < 6) {
-        error = "Пароль должен быть не менее 6 символов";
-      } else if (value.length > 10) {
-        error = "Пароль должен быть не более 10 символов";
-      } else if (
-        newFormData.repeatPassword !== "" &&
-        value !== newFormData.password
-      ) {
-        error = "Пароли должены совпадать";
+    if (
+      newFormData.password !== "" &&
+      newFormData.repeatPassword !== "" &&
+      newFormData.password !== newFormData.repeatPassword
+    ) {
+      {
+        error = "Пароли должны совпадать";
       }
-      setInputError(error);
     }
+    setInputError(error);
   };
 
   return (
@@ -86,6 +78,7 @@ export function App() {
           type="password"
           placeholder="Пароль"
           value={password}
+          onBlur={onBlur}
           onChange={onChange}
         />
         <input
@@ -93,6 +86,7 @@ export function App() {
           type="password"
           placeholder="Повтор пароля"
           value={repeatPassword}
+          onBlur={onBlur}
           onChange={onChange}
         />
         <button
